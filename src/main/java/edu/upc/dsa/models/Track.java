@@ -10,11 +10,15 @@ public class Track {
     static int lastId;
 
     public Track() {
-        this.id = RandomUtils.getId();
+        this.setId(RandomUtils.getId());
+    }
+    public Track(String title, String singer) {
+        this(null, title, singer);
     }
 
-    public Track(String title, String singer) {
+    public Track(String id, String title, String singer) {
         this();
+        if (id != null) this.setId(id);
         this.setSinger(singer);
         this.setTitle(title);
     }

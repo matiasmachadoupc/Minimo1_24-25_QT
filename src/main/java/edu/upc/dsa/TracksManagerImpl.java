@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.exceptions.TrackNotFoundException;
 import edu.upc.dsa.models.Track;
 
 import java.util.LinkedList;
@@ -35,8 +36,12 @@ public class TracksManagerImpl implements TracksManager {
         return t;
     }
 
-    public Track addTrack(String title, String singer) {
-        return this.addTrack(new Track(title, singer));
+    public Track addTrack(String title, String singer){
+        return this.addTrack(null, title, singer);
+    }
+
+    public Track addTrack(String id, String title, String singer) {
+        return this.addTrack(new Track(id, title, singer));
     }
 
     public Track getTrack(String id) {
@@ -53,6 +58,13 @@ public class TracksManagerImpl implements TracksManager {
         logger.warn("not found " + id);
         return null;
     }
+
+    public Track getTrack2(String id) throws TrackNotFoundException {
+        Track t = getTrack(id);
+        if (t == null) throw new TrackNotFoundException();
+        return t;
+    }
+
 
     public List<Track> findAll() {
         return this.tracks;
@@ -88,5 +100,9 @@ public class TracksManagerImpl implements TracksManager {
         }
 
         return t;
+    }
+
+    public void clear() {
+        this.tracks.clear();
     }
 }
